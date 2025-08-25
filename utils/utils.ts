@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 interface ScreenSize {
   width: number;
   height: number;
+  isLoaded: boolean;
 }
 
 export function cn(...inputs: ClassValue[]) {
@@ -15,6 +16,7 @@ export function useScreenSize(): ScreenSize {
   const [screenSize, setScreenSize] = useState<ScreenSize>({
     width: 1920,
     height: 1080,
+    isLoaded: false,
   });
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export function useScreenSize(): ScreenSize {
       const width = window.screen.width;
       const height = window.screen.height;
 
-      setScreenSize({ width, height });
+      setScreenSize({ width, height, isLoaded: true });
     };
 
     updateScreenSize();
@@ -36,5 +38,5 @@ export function useScreenSize(): ScreenSize {
     };
   }, []);
 
-  return screenSize
+  return screenSize;
 }
