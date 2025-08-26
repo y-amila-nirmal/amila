@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -39,4 +39,18 @@ export function useScreenSize(): ScreenSize {
   }, []);
 
   return screenSize;
+}
+
+export function useToast(): {
+  toast: (options: { title: string; description?: string }) => void;
+} {
+  const toast = useCallback(
+    ({ title, description }: { title: string; description?: string }) => {
+      if (typeof window !== "undefined") {
+        window.alert(`${title}${description ? "\n" + description : ""}`);
+      }
+    },
+    [],
+  );
+  return { toast };
 }
