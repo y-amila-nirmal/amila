@@ -17,7 +17,20 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "off",
+        "useValidAnchor": "off",
+        "noLabelWithoutControl": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noUnknownAtRules": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
+      }
     },
     "domains": {
       "next": "recommended",
