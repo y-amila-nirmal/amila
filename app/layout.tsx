@@ -18,6 +18,8 @@ export const metadata: Metadata = {
     "Personal portfolio of Amila Nirmal, a Full Stack Developer specializing in IoT Solutions, Embedded Linux systems, and Systems Programming.",
 };
 
+import { Providers } from "./providers";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

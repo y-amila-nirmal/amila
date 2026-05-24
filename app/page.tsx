@@ -1,17 +1,13 @@
 "use client";
-import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
+import { Parallax } from "react-scroll-parallax";
 import HeroImage from "@/public/images/hero-image.png";
 import { useToast } from "@/utils/utils";
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-
-  // Clean scroll parallax effect where the hero image moves up by -1000px on scroll
-  const heroImage = useTransform(scrollYProgress, [0, 0.35], [0, -1000]);
 
   const skillCategories = [
     {
@@ -246,30 +242,31 @@ export default function Home() {
   return (
     <main className="flex w-full flex-col items-center overflow-x-hidden bg-white text-gray-900 font-sans selection:bg-gray-150">
       {/* Hero Section */}
-      <div className="relative flex h-dvh w-full flex-col items-center justify-center overflow-hidden">
-        {/* Parallax Hero Portrait Image */}
-        <motion.div
-          style={{
-            y: heroImage,
-          }}
-          className="z-1"
-        >
-          <Image
-            className="w-3xs sm:w-xs drop-shadow-md"
-            src={HeroImage}
-            alt="Amila Nirmal"
-            priority
-          />
-        </motion.div>
+      <div className="relative w-full h-[150vh]">
+        {/* Sticky Header Text */}
+        {/* Stays fixed for 50vh, then scrolls up naturally */}
+        <div className="sticky top-0 left-0 flex h-dvh w-full flex-col items-center justify-center pointer-events-none z-0">
+          <div className="mt-32 sm:mt-40 flex flex-col items-center gap-5">
+            <h1 className="text-center text-5xl font-extrabold sm:text-7xl md:text-8xl lg:text-9xl text-transparent [-webkit-text-stroke:1.5px_#e5e7eb] uppercase tracking-wider opacity-90">
+              Full Stack
+            </h1>
+            <h1 className="text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 tracking-wide">
+              Developer
+            </h1>
+          </div>
+        </div>
 
-        {/* Sleek, readable outline watermark text in the background to solve overlapping/obscuring */}
-        <div className="absolute mt-32 flex h-dvh w-full flex-col items-center justify-center gap-5 sm:mt-40 select-none pointer-events-none">
-          <h1 className="text-center text-5xl font-extrabold sm:text-7xl md:text-8xl lg:text-9xl text-transparent [-webkit-text-stroke:1.5px_#e5e7eb] uppercase tracking-wider opacity-90">
-            Full Stack
-          </h1>
-          <h1 className="text-center text-4xl font-extrabold sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 tracking-wide">
-            Developer
-          </h1>
+        {/* Parallax Hero Portrait Image */}
+        {/* Positioned at the very top of the 150vh container but centered within the first 100vh */}
+        <div className="absolute top-0 left-0 flex h-dvh w-full flex-col items-center justify-center pointer-events-none z-10">
+          <Parallax speed={-25}>
+            <Image
+              className="w-3xs sm:w-xs drop-shadow-md"
+              src={HeroImage}
+              alt="Amila Nirmal"
+              priority
+            />
+          </Parallax>
         </div>
       </div>
 
